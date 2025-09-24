@@ -102,11 +102,10 @@ version = "1.0.19"
 optional = true
 
 [dependencies.termcolor]
-path = "../../../forks/termcolor"
+git = "https://github.com/cyrup-ai/termcolor"
+branch = "main"
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../workspace-hack"
+
 
 [dev-dependencies.hashbrown]
 version = "0.16.0"
