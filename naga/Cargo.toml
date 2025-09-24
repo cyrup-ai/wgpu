@@ -63,6 +63,7 @@ optional = true
 [dependencies.codespan-reporting]
 git = "https://github.com/cyrup-ai/codespan"
 branch = "main"
+package = "codespan-reporting"
 
 [dependencies.half]
 version = "2.6.0"

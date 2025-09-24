@@ -1,0 +1,16 @@
+[workspace]
+members = [
+    "wgpu",
+    "wgpu-core", 
+    "wgpu-hal",
+    "wgpu-types",
+    "wgpu-info",
+    "wgpu-macros",
+    "naga",
+    "naga-cli",
+    "cts_runner",
+    "deno_webgpu",
+    "player",
+    "xtask"
+]
+resolver = "2"
