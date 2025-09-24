@@ -61,7 +61,8 @@ features = [ "derive",]
 optional = true
 
 [dependencies.codespan-reporting]
-path = "../../../forks/codespan/codespan-reporting"
+git = "https://github.com/cyrup-ai/codespan"
+branch = "main"
 
 [dependencies.half]
 version = "2.6.0"
