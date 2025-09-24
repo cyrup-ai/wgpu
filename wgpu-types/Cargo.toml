@@ -51,9 +51,7 @@ default-features = false
 features = [ "alloc", "derive",]
 optional = true
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../workspace-hack"
+
 
 [dev-dependencies.serde]
 version = "1.0.226"
