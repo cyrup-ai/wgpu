@@ -1,0 +1,22 @@
+[package]
+name = "wgpu-macros"
+version = "26.0.1"
+authors = ["wgpu developers"]
+edition = "2024"
+description = "Macros for wgpu"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = ["graphics", "gamedev", "gpu", "vulkan", "metal"]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+exclude = ["Cargo.lock"]
+publish = false
+
+[lib]
+proc-macro = true
+
+[dependencies]
+heck = "0.5.0"
+quote = "1.0.40"
+syn = { version = "2.0.106", features = ["full"] }
+zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }

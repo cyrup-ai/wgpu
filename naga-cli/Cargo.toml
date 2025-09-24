@@ -1,0 +1,55 @@
+[package]
+name = "naga-cli"
+version = "26.0.1"
+authors = ["wgpu developers"]
+edition = "2024"
+description = "CLI for the naga shader translator and validator. Part of the wgpu project"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = ["shader", "SPIR-V", "GLSL", "MSL"]
+license = "MIT OR Apache-2.0"
+
+# Override the workspace's `rust-version` key. Firefox uses `cargo vendor` to
+# copy the crates it actually uses out of the workspace, so it's meaningful for
+# them to have less restrictive MSRVs individually than the workspace as a
+# whole, if their code permits. See `../README.md` for details.
+rust-version = "1.85.0"
+
+[lib]
+path = "lib.rs"
+
+#[[bin]]
+#name = "naga"
+#path = "src/bin/naga.rs"
+# This _must_ be false, as this conflicts with `naga`'s docs.
+#
+# See https://github.com/gfx-rs/wgpu/issues/4997
+#doc = false
+#test = false
+
+[dependencies]
+naga = { path = "../naga", features = [
+    "wgsl-in",
+    "wgsl-out",
+    "glsl-in",
+    "glsl-out",
+    "spv-in",
+    "spv-out",
+    "msl-out",
+    "hlsl-out",
+    "dot-out",
+    "serialize",
+    "deserialize",
+    "termcolor",
+    "stderr",
+    "fs",
+] }
+
+bincode = { version = "2.0.1", features = ["serde"] }
+codespan-reporting = { path = "../../codespan/codespan-reporting", features = [
+    "termcolor",
+] }
+env_logger = "0.11.8"
+argh = "0.1.13"
+anyhow = { version = "1.0.100", features = ["std"] }
+log = "0.4.28"
+zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }

@@ -1,0 +1,46 @@
+[[bench]]
+name = "wgpu-benchmark"
+harness = false
+
+[package]
+name = "wgpu-benchmark"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "wgpu benchmarking suite"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "graphics", "gamedev", "gpu", "vulkan", "metal",]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+publish = false
+
+[features]
+
+[dependencies]
+bincode = "2.0.1"
+bytemuck = "1.23.2"
+criterion = "0.7.0"
+nanorand = "0.8.0"
+pollster = "0.4.0"
+profiling = "1.0.17"
+rayon = "1.11.0"
+
+[dependencies.naga]
+path = "../naga"
+features = [ "deserialize", "serialize", "wgsl-in", "spv-in", "glsl-in", "spv-out", "msl-out", "hlsl-out", "glsl-out", "wgsl-out",]
+
+[dependencies.tracy-client]
+version = "0.18.2"
+optional = true
+
+[dependencies.wgpu]
+path = "../wgpu"
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../workspace-hack"
+
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = [ "cfg(feature, values(\"tracy\"))",]

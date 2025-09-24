@@ -1,0 +1,136 @@
+[package]
+name = "naga"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "Shader translator and validator. Part of the wgpu project"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "shader", "SPIR-V", "GLSL", "MSL",]
+license = "MIT OR Apache-2.0"
+exclude = [ "bin/**/*", "tests/**/*", "Cargo.lock", "target/**/*",]
+rust-version = "1.85.0"
+
+[features]
+default = [ "termcolor",]
+dot-out = []
+glsl-in = [ "dep:pp-rs",]
+glsl-out = []
+msl-out = []
+msl-out-if-target-apple = []
+serialize = [ "dep:serde", "bitflags/serde", "half/serde", "hashbrown/serde", "indexmap/serde",]
+deserialize = [ "dep:serde", "bitflags/serde", "half/serde", "hashbrown/serde", "indexmap/serde",]
+arbitrary = [ "dep:arbitrary", "bitflags/arbitrary", "indexmap/arbitrary", "half/arbitrary", "half/std",]
+spv-in = [ "dep:petgraph", "petgraph/graphmap", "dep:spirv",]
+spv-out = [ "dep:spirv",]
+wgsl-in = [ "dep:hexf-parse", "dep:unicode-ident",]
+wgsl-out = []
+hlsl-out = []
+hlsl-out-if-target-windows = []
+termcolor = []
+stderr = [ "codespan-reporting/std",]
+fs = []
+
+[dependencies]
+arrayvec = "0.7.6"
+bitflags = "2.9.4"
+bit-set = "0.8.0"
+cfg-if = "1.0.3"
+hashbrown = "0.16.0"
+rustc-hash = "2.1.1"
+indexmap = "2.11.4"
+log = "0.4.28"
+num-traits = "0.2.19"
+thiserror = "2.0.16"
+
+[build-dependencies]
+cfg_aliases = "0.2.1"
+
+[dev-dependencies]
+diff = "0.1.13"
+env_logger = "0.11.8"
+itertools = "0.14.0"
+ron = "0.11.0"
+rspirv = "0.12.0"
+strum = "0.27.2"
+toml = "0.9.7"
+walkdir = "2.5.0"
+
+[dependencies.arbitrary]
+version = "1.4.2"
+features = [ "derive",]
+optional = true
+
+[dependencies.codespan-reporting]
+path = "../../../forks/codespan/codespan-reporting"
+
+[dependencies.half]
+version = "2.6.0"
+features = [ "num-traits",]
+
+[dependencies.libm]
+version = "0.2.15"
+default-features = false
+
+[dependencies.once_cell]
+version = "1.21.3"
+features = [ "alloc", "race",]
+
+[dependencies.spirv]
+version = "0.3.0"
+optional = true
+
+[dependencies.serde]
+version = "1.0.226"
+features = [ "alloc", "derive",]
+optional = true
+
+[dependencies.petgraph]
+version = "0.8.2"
+optional = true
+
+[dependencies.pp-rs]
+version = "0.2.1"
+optional = true
+
+[dependencies.hexf-parse]
+version = "0.2.1"
+optional = true
+
+[dependencies.unicode-ident]
+version = "1.0.19"
+optional = true
+
+[dependencies.termcolor]
+path = "../../../forks/termcolor"
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../workspace-hack"
+
+[dev-dependencies.hashbrown]
+version = "0.16.0"
+features = [ "serde",]
+
+[dev-dependencies.hlsl-snapshots]
+path = "hlsl-snapshots"
+
+[dev-dependencies.serde]
+version = "1.0.226"
+features = [ "default", "derive",]
+
+[dev-dependencies.spirv]
+version = "0.3.0"
+features = [ "deserialize",]
+
+[lints.rust]
+explicit_outlives_requirements = "allow"
+dead_code = "allow"
+
+[lints.clippy]
+needless_lifetimes = "allow"
+std_instead_of_alloc = "warn"
+std_instead_of_core = "warn"
+alloc_instead_of_core = "warn"
+
+[package.metadata.docs.rs]
+all-features = true

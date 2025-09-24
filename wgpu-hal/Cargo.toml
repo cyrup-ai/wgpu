@@ -1,0 +1,239 @@
+[[example]]
+name = "halmark"
+
+[[example]]
+name = "raw-gles"
+required-features = [ "gles",]
+
+[package]
+name = "wgpu-hal"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "Hardware abstraction layer for wgpu, the cross-platform, safe, pure-rust graphics API"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "graphics", "gamedev", "gpu", "vulkan", "metal",]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+
+[lib]
+
+[features]
+metal = [ "naga/msl-out", "dep:arrayvec", "dep:block", "dep:core-graphics-types", "dep:hashbrown", "dep:libc", "dep:log", "dep:metal", "dep:objc", "dep:parking_lot", "dep:profiling",]
+vulkan = [ "naga/spv-out", "dep:android_system_properties", "dep:arrayvec", "dep:ash", "dep:bytemuck", "dep:gpu-alloc", "dep:gpu-descriptor", "dep:hashbrown", "dep:libc", "dep:libloading", "dep:log", "dep:ordered-float", "dep:parking_lot", "dep:profiling", "dep:smallvec", "dep:windows", "windows/Win32",]
+gles = [ "naga/glsl-out", "dep:arrayvec", "dep:bytemuck", "dep:glow", "dep:glutin_wgl_sys", "dep:hashbrown", "dep:js-sys", "dep:khronos-egl", "dep:libloading", "dep:log", "dep:ndk-sys", "dep:objc", "dep:parking_lot", "dep:profiling", "dep:wasm-bindgen", "dep:web-sys", "wgpu-types/web", "windows/Win32_Graphics_OpenGL", "windows/Win32_Graphics_Gdi", "windows/Win32_System_LibraryLoader", "windows/Win32_UI_WindowsAndMessaging",]
+dx12 = [ "naga/hlsl-out", "dep:arrayvec", "dep:bit-set", "dep:bytemuck", "dep:hashbrown", "dep:libloading", "dep:log", "dep:ordered-float", "dep:parking_lot", "dep:profiling", "dep:range-alloc", "dep:windows-core", "gpu-allocator/d3d12", "windows/Win32_Graphics_Direct3D_Fxc", "windows/Win32_Graphics_Direct3D_Dxc", "windows/Win32_Graphics_Direct3D", "windows/Win32_Graphics_Direct3D12", "windows/Win32_Graphics_DirectComposition", "windows/Win32_Graphics_Dxgi_Common", "windows/Win32_Security", "windows/Win32_System_Diagnostics_Debug", "windows/Win32_System_Kernel", "windows/Win32_System_Performance", "windows/Win32_System_Threading", "windows/Win32_UI_WindowsAndMessaging",]
+static-dxc = [ "dep:mach-dxcompiler-rs",]
+renderdoc = [ "dep:libloading", "dep:renderdoc-sys", "dep:log",]
+fragile-send-sync-non-atomic-wasm = [ "wgpu-types/fragile-send-sync-non-atomic-wasm",]
+portable-atomic = [ "dep:portable-atomic", "dep:portable-atomic-util",]
+device_lost_panic = []
+internal_error_panic = []
+validation_canary = [ "dep:parking_lot",]
+cargo-clippy = []
+
+[dependencies]
+bitflags = "2.9.4"
+cfg-if = "1.0.3"
+raw-window-handle = "0.6.2"
+thiserror = "2.0.16"
+
+[build-dependencies]
+cfg_aliases = "0.2.1"
+
+[dev-dependencies]
+env_logger = "0.11.8"
+log = "0.4.28"
+glam = "0.30.7"
+winit = "0.30.12"
+
+[dependencies.naga]
+path = "../naga"
+
+[dependencies.wgpu-types]
+path = "../wgpu-types"
+default-features = false
+
+[dependencies.parking_lot]
+version = "0.12.4"
+optional = true
+
+[dependencies.arrayvec]
+version = "0.7.6"
+optional = true
+
+[dependencies.bytemuck]
+version = "1.23.2"
+optional = true
+features = [ "derive",]
+
+[dependencies.hashbrown]
+version = "0.16.0"
+optional = true
+
+[dependencies.log]
+version = "0.4.28"
+optional = true
+
+[dependencies.ordered-float]
+version = "5.0.0"
+optional = true
+
+[dependencies.profiling]
+version = "1.0.17"
+optional = true
+default-features = false
+
+[dependencies.rustc-hash]
+version = "2.1.1"
+optional = true
+
+[dependencies.glow]
+version = "0.16.0"
+optional = true
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../workspace-hack"
+
+[dev-dependencies.naga]
+path = "../naga"
+features = [ "wgsl-in", "termcolor",]
+
+[package.metadata.cargo-machete]
+ignored = [ "cfg_aliases",]
+
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = [ "cfg(web_sys_unstable_apis)",]
+
+[package.metadata.docs.rs]
+features = [ "vulkan", "gles", "renderdoc",]
+rustdoc-args = [ "--cfg", "docsrs",]
+targets = [ "x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "wasm32-unknown-unknown",]
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.ash]
+version = "0.38.0"
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.gpu-alloc]
+version = "0.6.0"
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.gpu-descriptor]
+version = "0.3.2"
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.smallvec]
+version = "2.0.0-alpha.11"
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.khronos-egl]
+version = "6.0.0"
+features = [ "dynamic",]
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.libloading]
+version = "0.8.9"
+optional = true
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.renderdoc-sys]
+version = "1.1.0"
+optional = true
+
+[target."cfg(unix)".dependencies.libc]
+version = "1.0.0-alpha.1"
+optional = true
+
+[target."cfg(windows)".dependencies.windows]
+version = "0.62.0"
+optional = true
+
+[target."cfg(windows)".dependencies.windows-core]
+version = "0.62.0"
+optional = true
+
+[target."cfg(windows)".dependencies.bit-set]
+version = "0.8.0"
+optional = true
+
+[target."cfg(windows)".dependencies.range-alloc]
+version = "0.1.4"
+optional = true
+
+[target."cfg(windows)".dependencies.gpu-allocator]
+version = "0.27.0"
+optional = true
+
+[target."cfg(windows)".dependencies.glutin_wgl_sys]
+version = "0.6.1"
+optional = true
+
+[target."cfg(all(windows, not(target_arch = \"aarch64\")))".dependencies.mach-dxcompiler-rs]
+version = "0.1.4"
+optional = true
+
+[target."cfg(target_vendor = \"apple\")".dependencies.block]
+version = "0.1.6"
+optional = true
+
+[target."cfg(target_vendor = \"apple\")".dependencies.core-graphics-types]
+version = "0.2.0"
+optional = true
+
+[target."cfg(target_vendor = \"apple\")".dependencies.metal]
+version = "0.32.0"
+optional = true
+
+[target."cfg(target_vendor = \"apple\")".dependencies.objc]
+version = "0.2.7"
+optional = true
+
+[target."cfg(target_os = \"android\")".dependencies.android_system_properties]
+version = "0.1.5"
+optional = true
+
+[target."cfg(target_os = \"android\")".dependencies.ndk-sys]
+version = "0.6.0"
+optional = true
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.wasm-bindgen]
+version = "0.2.103"
+optional = true
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.web-sys]
+version = "0.3.80"
+optional = true
+features = [ "default", "Window", "HtmlCanvasElement", "WebGl2RenderingContext", "OffscreenCanvas",]
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.js-sys]
+version = "0.3.80"
+optional = true
+default-features = true
+
+[target."cfg(target_os = \"emscripten\")".dependencies.khronos-egl]
+version = "6.0.0"
+optional = true
+features = [ "static", "no-pkg-config",]
+
+[target."cfg(target_os = \"emscripten\")".dependencies.libloading]
+version = "0.8.9"
+optional = true
+
+[target."cfg(any(not(target_has_atomic = \"64\"), not(target_has_atomic = \"ptr\")))".dependencies.portable-atomic]
+version = "1.11.1"
+optional = true
+
+[target."cfg(not(target_has_atomic = \"ptr\"))".dependencies.portable-atomic-util]
+version = "0.2.4"
+features = [ "alloc",]
+optional = true
+
+[target."cfg(not(any(target_arch = \"wasm32\", target_os = \"ios\", target_os = \"visionos\")))".dev-dependencies.glutin-winit]
+version = "0.5.0"
+features = [ "egl", "wgl", "wayland", "x11",]
+
+[target."cfg(not(any(target_arch = \"wasm32\", target_os = \"ios\", target_os = \"visionos\")))".dev-dependencies.glutin]
+version = "0.32.3"
+features = [ "egl", "wgl", "wayland", "x11",]

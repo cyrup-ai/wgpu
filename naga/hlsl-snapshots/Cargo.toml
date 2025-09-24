@@ -1,0 +1,17 @@
+[package]
+name = "hlsl-snapshots"
+version = "26.0.1"
+edition = "2024"
+rust-version = "1.85.0"
+publish = false
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "hlsl_snapshots"
+path = "src/lib.rs"
+test = false
+
+[dependencies]
+anyhow = "1.0.100"
+nanoserde = "0.2.1"
+zeroshot-workspace-hack = { version = "0.1", path = "../../../../workspace-hack" }

@@ -1,0 +1,142 @@
+[package]
+name = "wgpu"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "Cross-platform, safe, pure-rust graphics API"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "graphics", "gamedev", "gpu", "vulkan", "metal",]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+readme = "../README.md"
+exclude = [ "Cargo.lock",]
+
+[lib]
+
+[features]
+default = [ "std", "parking_lot", "dx12", "metal", "gles", "vulkan", "wgsl", "webgpu",]
+dx12 = [ "wgpu-core?/dx12",]
+metal = [ "wgpu-core?/metal",]
+vulkan = [ "wgpu-core?/vulkan",]
+gles = [ "wgpu-core?/gles",]
+webgpu = [ "web", "naga?/wgsl-out", "dep:wasm-bindgen-futures", "web-sys/Document", "web-sys/Event", "web-sys/Navigator", "web-sys/NodeList", "web-sys/Window", "web-sys/WorkerGlobalScope", "web-sys/WorkerNavigator",]
+angle = [ "wgpu-core?/angle",]
+vulkan-portability = [ "wgpu-core?/vulkan-portability",]
+webgl = [ "web", "wgpu-core/webgl", "dep:wgpu-hal", "dep:smallvec",]
+noop = [ "wgpu-core/noop", "dep:wgpu-hal", "dep:smallvec",]
+custom = []
+spirv = [ "naga/spv-in", "wgpu-core?/spirv",]
+glsl = [ "naga/glsl-in", "wgpu-core?/glsl",]
+wgsl = [ "wgpu-core?/wgsl",]
+naga-ir = [ "dep:naga",]
+strict_asserts = [ "wgpu-core?/strict_asserts", "wgpu-types/strict_asserts",]
+serde = [ "wgpu-core?/serde", "wgpu-types/serde",]
+static-dxc = [ "wgpu-core?/static-dxc",]
+counters = [ "wgpu-core?/counters",]
+fragile-send-sync-non-atomic-wasm = [ "wgpu-core?/fragile-send-sync-non-atomic-wasm", "wgpu-types/fragile-send-sync-non-atomic-wasm",]
+web = [ "dep:wasm-bindgen", "dep:js-sys", "dep:web-sys", "wgpu-types/web",]
+std = [ "raw-window-handle/std", "wgpu-types/std", "wgpu-core?/std",]
+parking_lot = [ "dep:parking_lot",]
+
+[dependencies]
+arrayvec = "0.7.6"
+bitflags = "2.9.4"
+cfg-if = "1.0.3"
+document-features = "0.2.11"
+hashbrown = "0.16.0"
+log = "0.4.28"
+profiling = "1.0.17"
+static_assertions = "1.1.0"
+
+[dev-dependencies]
+bytemuck = "1.23.2"
+
+[build-dependencies]
+cfg_aliases = "0.2.1"
+
+[dependencies.naga]
+path = "../naga"
+optional = true
+features = [ "termcolor",]
+
+[dependencies.wgpu-core]
+path = "../wgpu-core"
+optional = true
+
+[dependencies.wgpu-types]
+path = "../wgpu-types"
+
+[dependencies.parking_lot]
+version = "0.12.4"
+optional = true
+
+[dependencies.raw-window-handle]
+version = "0.6.2"
+features = [ "alloc",]
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../workspace-hack"
+
+[package.metadata.cargo-machete]
+ignored = [ "cfg_aliases",]
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies]
+smallvec = "2.0.0-alpha.11"
+
+[target."cfg(target_os = \"emscripten\")".dependencies]
+smallvec = "2.0.0-alpha.11"
+
+[target."cfg(not(target_has_atomic = \"64\"))".dependencies]
+portable-atomic = "1.11.1"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs",]
+targets = [ "x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "wasm32-unknown-unknown",]
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.wgpu-core]
+path = "../wgpu-core"
+features = [ "raw-window-handle", "renderdoc", "wgsl", "portable-atomic",]
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.wgpu-hal]
+path = "../wgpu-hal"
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.js-sys]
+version = "0.3"
+optional = true
+features = [ "default",]
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.wasm-bindgen]
+version = "0.2"
+optional = true
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.web-sys]
+version = "0.3"
+optional = true
+features = [ "HtmlCanvasElement", "OffscreenCanvas",]
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.wgpu-core]
+path = "../wgpu-core"
+optional = true
+features = [ "raw-window-handle",]
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.wgpu-hal]
+path = "../wgpu-hal"
+optional = true
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.smallvec]
+version = "2.0.0-alpha.11"
+optional = true
+
+[target."cfg(all(target_arch = \"wasm32\", not(target_os = \"emscripten\")))".dependencies.wasm-bindgen-futures]
+version = "0.4"
+optional = true
+
+[target."cfg(target_os = \"emscripten\")".dependencies.wgpu-core]
+path = "../wgpu-core"
+features = [ "raw-window-handle",]
+
+[target."cfg(target_os = \"emscripten\")".dependencies.wgpu-hal]
+path = "../wgpu-hal"

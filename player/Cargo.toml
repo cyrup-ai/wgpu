@@ -1,0 +1,48 @@
+[[bin]]
+name = "play"
+path = "src/main.rs"
+test = false
+
+[package]
+name = "player"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "WebGPU trace player"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "graphics", "gamedev", "gpu", "vulkan", "metal",]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+publish = false
+
+[lib]
+test = false
+
+[dependencies]
+env_logger = "0.11.8"
+log = "0.4.28"
+raw-window-handle = "0.6.2"
+ron = "0.11.0"
+
+[dev-dependencies]
+
+[dependencies.wgpu-types]
+path = "../wgpu-types"
+features = [ "serde", "std",]
+
+[dependencies.serde]
+version = "1.0.226"
+features = [ "derive",]
+
+[dependencies.winit]
+version = "0.30.12"
+optional = true
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../workspace-hack"
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.wgpu-core]
+path = "../wgpu-core"
+features = [ "replay", "raw-window-handle", "strict_asserts", "wgsl", "metal", "dx12", "vulkan", "gles",]

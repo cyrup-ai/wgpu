@@ -1,0 +1,93 @@
+[[bin]]
+name = "wgpu-examples"
+path = "src/main.rs"
+test = false
+
+[package]
+name = "wgpu-examples"
+version = "26.0.1"
+authors = [ "wgpu developers",]
+edition = "2024"
+description = "Common example code"
+homepage = "https://wgpu.rs"
+repository = "https://github.com/gfx-rs/wgpu"
+keywords = [ "graphics", "gamedev", "gpu", "vulkan", "metal",]
+license = "MIT OR Apache-2.0"
+rust-version = "1.85.0"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+harness = false
+bench = false
+
+[features]
+default = []
+webgl = [ "wgpu/webgl",]
+webgpu = [ "wgpu/webgpu",]
+
+[dependencies]
+bytemuck = "1.23.2"
+cfg-if = "1.0.3"
+flume = "0.11.1"
+ktx2 = "0.4.0"
+log = "0.4.28"
+noise = "0.9.0"
+obj = "0.10.2"
+png = "0.18.0"
+pollster = "0.4.0"
+web-time = "1.1.0"
+winit = "0.30.12"
+
+[dependencies.encase]
+version = "0.12.0"
+
+[dependencies.glam]
+version = "0.30.7"
+features = [ "bytemuck",]
+
+[dependencies.nanorand]
+version = "0.8.0"
+features = [ "tls",]
+
+[dependencies.wgpu-types]
+path = "../../wgpu-types"
+features = [ "std", "trace",]
+
+[dependencies.zeroshot-workspace-hack]
+version = "0.1"
+path = "../../../../workspace-hack"
+
+[dev-dependencies.wgpu-test]
+path = "../../tests"
+
+[lints.clippy]
+disallowed_types = "allow"
+
+[package.metadata.cargo-machete]
+ignored = [ "wasm_bindgen_test",]
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies]
+env_logger = "0.11.8"
+
+[target."cfg(target_arch = \"wasm32\")".dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = "1.0.0"
+fern = "0.7.1"
+wasm-bindgen = "0.2.103"
+wasm-bindgen-futures = "0.4.53"
+
+[target."cfg(target_arch = \"wasm32\")".dev-dependencies]
+wasm-bindgen-test = "0.3.53"
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies.wgpu]
+path = "../../wgpu"
+
+[target."cfg(target_arch = \"wasm32\")".dependencies.wgpu]
+path = "../../wgpu"
+default-features = false
+features = [ "wgsl", "std",]
+
+[target."cfg(target_arch = \"wasm32\")".dependencies.web-sys]
+version = "0.3.80"
+features = [ "Location", "Blob", "RequestInit", "RequestMode", "Request", "ImageData", "Response", "HtmlImageElement", "WebGl2RenderingContext", "CanvasRenderingContext2d",]

@@ -1,0 +1,57 @@
+[package]
+name = "naga-fuzz"
+version = "26.0.1"
+authors = ["wgpu developers"]
+publish = false
+edition = "2024"
+rust-version = "1.85.0"
+license = "MIT OR Apache-2.0"
+build = "build.rs"
+
+[package.metadata]
+cargo-fuzz = true
+
+[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios")))'.dependencies]
+arbitrary = { version = "1.4.2", features = ["derive"] }
+libfuzzer-sys = "0.4.10"
+
+[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "visionos")))'.dependencies.naga]
+path = "../"
+features = ["arbitrary", "spv-in", "wgsl-in", "glsl-in"]
+
+[build-dependencies]
+cfg_aliases = "0.2.1"
+
+[[bin]]
+name = "spv_parser"
+path = "fuzz_targets/spv_parser.rs"
+bench = false
+test = false
+doc = false
+
+[[bin]]
+name = "wgsl_parser"
+path = "fuzz_targets/wgsl_parser.rs"
+bench = false
+test = false
+doc = false
+
+[[bin]]
+name = "glsl_parser"
+path = "fuzz_targets/glsl_parser.rs"
+bench = false
+test = false
+doc = false
+
+[[bin]]
+name = "ir"
+path = "fuzz_targets/ir.rs"
+bench = false
+test = false
+doc = false
+
+[lints.clippy]
+disallowed_types = "allow"
+
+[dependencies]
+zeroshot-workspace-hack = { version = "0.1", path = "../../../../workspace-hack" }
