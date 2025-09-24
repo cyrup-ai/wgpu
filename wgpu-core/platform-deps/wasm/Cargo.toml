@@ -23,5 +23,4 @@ webgl = ["wgpu-hal/gles"]
 [target.'cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))'.dependencies]
 wgpu-hal = { path = "../../../wgpu-hal" }
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../../../workspace-hack" }
+

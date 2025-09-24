@@ -13,7 +13,6 @@ publish = false
 [dependencies]
 ron = "0.11.0"
 anyhow = "1.0.100"
-zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }
 
 [dependencies.serde]
 version = "1.0.226"

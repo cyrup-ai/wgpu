@@ -73,9 +73,7 @@ features = [ "bytemuck", "std",]
 version = "0.27.2"
 features = [ "derive",]
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../workspace-hack"
+
 
 [lints.clippy]
 disallowed_types = "allow"

@@ -54,9 +54,7 @@ features = [ "tls",]
 path = "../../wgpu-types"
 features = [ "std", "trace",]
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../../workspace-hack"
+
 
 [dev-dependencies.wgpu-test]
 path = "../../tests"

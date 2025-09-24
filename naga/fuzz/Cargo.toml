@@ -53,5 +53,4 @@ doc = false
 [lints.clippy]
 disallowed_types = "allow"
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../../workspace-hack" }
+

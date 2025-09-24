@@ -25,5 +25,4 @@ vulkan-portability = ["wgpu-hal/vulkan", "wgpu-hal/renderdoc"]
 [target.'cfg(target_vendor = "apple")'.dependencies]
 wgpu-hal = { path = "../../../wgpu-hal" }
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../../../workspace-hack" }
+

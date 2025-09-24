@@ -26,5 +26,4 @@ renderdoc = ["wgpu-hal/renderdoc"]
 [target.'cfg(any(windows, target_os = "linux", target_os = "android"))'.dependencies]
 wgpu-hal = { path = "../../../wgpu-hal" }
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../../../workspace-hack" }
+

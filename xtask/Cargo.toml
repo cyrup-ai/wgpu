@@ -20,5 +20,4 @@ log = "0.4.28"
 pico-args = "0.5.0"
 xshell = "0.3.0-pre.2"
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }
+

@@ -56,5 +56,4 @@ wgpu-core = { path = "../wgpu-core", features = ["dx12"] }
 [target.'cfg(any(windows, all(unix, not(target_os = "emscripten"))))'.dependencies]
 wgpu-core = { path = "../wgpu-core", features = ["vulkan"] }
 
-[dependencies]
-zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }
+

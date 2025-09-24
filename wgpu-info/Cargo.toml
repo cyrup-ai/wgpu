@@ -28,9 +28,7 @@ features = [ "default",]
 [dependencies.wgpu]
 path = "../wgpu"
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../workspace-hack"
+
 
 [lints.clippy]
 disallowed_types = "allow"
