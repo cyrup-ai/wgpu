@@ -75,9 +75,7 @@ optional = true
 version = "0.6.2"
 features = [ "alloc",]
 
-[dependencies.zeroshot-workspace-hack]
-version = "0.1"
-path = "../../../workspace-hack"
+
 
 [package.metadata.cargo-machete]
 ignored = [ "cfg_aliases",]

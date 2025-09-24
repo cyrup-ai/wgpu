@@ -52,4 +52,3 @@ env_logger = "0.11.8"
 argh = "0.1.13"
 anyhow = { version = "1.0.100", features = ["std"] }
 log = "0.4.28"
-zeroshot-workspace-hack = { version = "0.1", path = "../../../workspace-hack" }
